@@ -16,42 +16,24 @@ import javax.persistence.ManyToOne;
  *
  * @author fermin
  */
-
-@Entity(name = "imagenes")
-public class Imagen {
+@Entity(name = "sin_mic")
+public class Sin_Mic {
+    
+    /*Agregar las relacinoes de uno a muchos y ver como desde el front vamos a enviarle
+    el id de el sintoma desde la lista a el back para que se guarde*/
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    @Column(name = "ima_id_imagen")
-    private int id;
-    
-    @Column(name = "ima_url")
-    private String url;
-    //Revisar la relacion de imagen - microorganismo
+    @Column(name = "sin_id_sintomas")
+    private int id_sintomas;
     
     @ManyToOne
     @JoinColumn(name = "mic_id_micro")
     private Microorganismo mic;
 
-    public Imagen() {
+    public Sin_Mic() {
         mic= new Microorganismo();
     }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public String getUrl() {
-        return url;
-    }
-
-    public void setUrl(String url) {
-        this.url = url;
-    }
-
+    
     public Microorganismo getMic() {
         return mic;
     }
@@ -59,4 +41,13 @@ public class Imagen {
     public void setMic(Microorganismo mic) {
         this.mic = mic;
     }
+
+    public int getId_sintomas() {
+        return id_sintomas;
+    }
+
+    public void setId_sintomas(int id_sintomas) {
+        this.id_sintomas = id_sintomas;
+    } 
+    
 }

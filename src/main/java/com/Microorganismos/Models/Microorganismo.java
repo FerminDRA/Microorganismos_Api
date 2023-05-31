@@ -4,12 +4,17 @@
  */
 package com.Microorganismos.Models;
 
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
 /**
  *
@@ -38,12 +43,21 @@ public class Microorganismo {
     private String prevencion;
     
     //Revisar que anotacion lleva @Column(name = "a que????")
-    private List<Sintoma> sintomas;
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "mic")
+    private Set<Sin_Mic> sin_mic;
     
-    private List<Imagen> imagenes;
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "mic")
+    private Set<Imagen> imagenes;
     
-    @Column(name = "mic_usu_id_usuario")
-    private int id_usuario;
+    @ManyToOne
+    @JoinColumn(name = "usu_id_usuario")
+    private Usuario usuario;
+
+    public Microorganismo() {
+        sin_mic= new HashSet<>();
+        imagenes= new HashSet<>();
+        usuario= new Usuario();
+    }
 
     public int getId() {
         return id;
@@ -93,22 +107,21 @@ public class Microorganismo {
         this.prevencion = prevencion;
     }
 
-    public List<Sintoma> getSintomas() {
-        return sintomas;
+    public Set<Sin_Mic> getSin_mic() {
+        return sin_mic;
     }
 
-    public void setSintomas(List<Sintoma> sintomas) {
-        this.sintomas = sintomas;
+    public void setSin_mic(Set<Sin_Mic> sin_mic) {
+        this.sin_mic = sin_mic;
     }
 
-    public List<Imagen> getImagenes() {
+    public Set<Imagen> getImagenes() {
         return imagenes;
     }
 
-    public void setImagenes(List<Imagen> imagenes) {
+    public void setImagenes(Set<Imagen> imagenes) {
         this.imagenes = imagenes;
     }
-
     
     
 }
